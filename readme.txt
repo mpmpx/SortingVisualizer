@@ -1,1 +1,0 @@
-This is my first React.js procject. It is a sorting algorithm visualizer which supports multiple different sorting algorithm. You can control the speed of visualization animation and size of array by yourself.
