@@ -1,0 +1,135 @@
+body, html {
+  margin: 0;
+  font: 1em "Open Sans", sans-serif;
+}
+
+*, *::after, *::before {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: no-drag;
+  cursor: default;
+}
+
+.nav-main {
+  overflow: hidden;
+  background-color: #aebfa0;
+}
+
+.nav-header{
+  float:left;
+  height: 40px;
+  padding: 10px 20px;
+  font-size: 1.8em;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  line-height: 40px;
+  font-weight: bold;
+  display: block;
+  color: white
+}
+
+.nav-item{
+  float: left;
+  overflow: hidden;
+  padding: 10px 5px;
+}
+
+.nav-button {
+  font-size: 16px;
+  border: none;
+  border-radius: 14px;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  margin: 0;
+}
+
+.nav-item:hover .nav-button {
+    background-color: #bfbfbf;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top:66.8px;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.slidercontainer {
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  top:66.8px;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.slider-item {
+  display: inline-block;
+}
+
+.dropdown-menu a {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-menu a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown:hover .slidercontainer {
+  display: block;
+}
+
+.dropdown:hover .dropdown-menu:active{
+  display: none;
+}
+
+.dropdown:active {
+  display: block;
+}
+
+.visualize-button {
+  color: red;
+}
+
+.bar, .bar-compare, .bar-swap{
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  max-width: 50px;
+  align-self: flex-end;
+}
+
+.bar {
+  background-color: green;
+}
+
+.bar-swap {
+  background-color: red;
+}
+
+.bar-compare{
+  background-color: blue;
+}
+
+.board {
+  justify-content: center;
+  display: flex;
+  height: 70vh;
+}
