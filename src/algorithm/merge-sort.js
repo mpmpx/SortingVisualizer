@@ -1,8 +1,8 @@
 export function mergeSort(array) {
-	const arr = array;
+	const arr = array.slice();
 	let history = [];
 	mergeSortHelper(arr, 0, arr.length - 1, history);
-	history.push({array: array.slice(), status: 'none', index: null});
+	history.push({array: arr.slice(), status: 'none', index: null});
 	return history;
 }
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import ControlPane from './control-pane';
 import Board from './board';
+import {bubbleSort} from '../algorithm/bubble-sort.js'
 import {mergeSort} from '../algorithm/merge-sort.js'
+//import {quickSort} from '../algorithm/quick-sort.js'
 
 class App extends React.Component {
 	constructor(props) {
@@ -38,7 +40,7 @@ class App extends React.Component {
     const array = Array.from({length: 10}, () => Math.floor(Math.random() * this.maxNum));
     this.setState({
       count: 0,
-			history: [{array: array, status: 'none', index: []}],
+			history: [{array: array, status: 'none', index: null}],
 			algorithm: '',
 			isVisualizationOn: false,
 			arraySize: 10,
@@ -49,6 +51,8 @@ class App extends React.Component {
 
 	handleAlgorithmChange(algorithm) {
 		this.setState({
+      count: 0,
+      history: [{array: this.state.array, status: 'none', index: null}],
 			algorithm: algorithm,
 		})
 	}
@@ -58,7 +62,21 @@ class App extends React.Component {
 			return;
 		}
 		const array = this.state.array.slice();
-		const history = this.state.history.concat(mergeSort(array));
+    const new_history = (() => {
+      switch (this.state.algorithm) {
+        case "merge sort":
+          return mergeSort(array);
+        case "quick sort":
+          break;
+          //return quickSort(array);
+        case "bubble sort":
+          return bubbleSort(array);
+        default:
+          throw new Error("Algorithm not found: " + this.state.algorithm);
+      }
+    })();
+    const history = this.state.history.concat(new_history);
+
 
 		const id = setInterval(() => {
 			const count = this.state.count;
@@ -73,7 +91,7 @@ class App extends React.Component {
 				isVisualizationOn: true,
 				array: history[count].array,
 			});
-		}, this.state.speed * 10);
+		}, 10 / this.state.speed * 10);
 	}
 
 	handleRandomArray() {
@@ -103,7 +121,6 @@ class App extends React.Component {
 	}
 
 	render() {
-		const history = this.state.history;
 		return (
 			<div>
 				<ControlPane
