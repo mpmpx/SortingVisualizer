@@ -1,9 +1,11 @@
 import React from 'react';
 import ControlPane from './control-pane';
 import Board from './board';
+import {insertionSort}  from '../algorithm/insertion-sort.js'
+import {selectionSort} from '../algorithm/selection-sort.js'
 import {bubbleSort} from '../algorithm/bubble-sort.js'
 import {mergeSort} from '../algorithm/merge-sort.js'
-//import {quickSort} from '../algorithm/quick-sort.js'
+import {quickSort} from '../algorithm/quick-sort.js'
 
 class App extends React.Component {
 	constructor(props) {
@@ -29,6 +31,7 @@ class App extends React.Component {
 			array: array,
 		};
     this.handleReset = this.handleReset.bind(this);
+		this.handleRestore = this.handleRestore.bind(this);
 		this.handleAlgorithmChange = this.handleAlgorithmChange.bind(this);
 		this.handleVisiualization = this.handleVisiualization.bind(this);
 		this.handleRandomArray = this.handleRandomArray.bind(this);
@@ -49,6 +52,15 @@ class App extends React.Component {
     })
   }
 
+	handleRestore() {
+		this.setState({
+			count: 0,
+			history: [this.state.history[0]],
+			array: this.state.history[0].array,
+			isVisualizationOn: false,
+		})
+	}
+
 	handleAlgorithmChange(algorithm) {
 		this.setState({
       count: 0,
@@ -64,13 +76,16 @@ class App extends React.Component {
 		const array = this.state.array.slice();
     const new_history = (() => {
       switch (this.state.algorithm) {
+				case "insertion sort":
+					return insertionSort(array);
+				case "selection sort":
+					return selectionSort(array);
+				case "bubble sort":
+					return bubbleSort(array);
         case "merge sort":
           return mergeSort(array);
         case "quick sort":
-          break;
-          //return quickSort(array);
-        case "bubble sort":
-          return bubbleSort(array);
+          return quickSort(array);
         default:
           throw new Error("Algorithm not found: " + this.state.algorithm);
       }
@@ -138,9 +153,9 @@ class App extends React.Component {
 				/>
 
 				<Board
-					array={this.state.array}
 					history={this.state.history[this.state.count]}
 					maxNum={this.maxNum}
+					onRestore={this.handleRestore}
 				/>
 			</div>
 		);

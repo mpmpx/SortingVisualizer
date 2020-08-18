@@ -2,41 +2,47 @@ import React from 'react';
 
 class Board extends React.Component {
 	render() {
-		const array = this.props.array;
+		const array = this.props.history.array;
 		const status = this.props.history.status;
 		const indexList = this.props.history.index;
 
 		return (
-			<div className='board'>
-				{
-					array.map ( (value, index) => {
-						const height = value / this.props.maxNum * 100;
-						const width = Math.floor(window.innerWidth * 0.5 / array.length);
-						const style = {
-							height: height + "%",
-							top: 100 - height + "%",
-							width: width + "px",
-						}
-						const className = (() => {
-							if (indexList == null) {
+			<div className='main'>
+				<div className='board'>
+					{
+						array.map ( (value, index) => {
+							const height = value / this.props.maxNum * 100;
+							const width = Math.floor(window.innerWidth * 0.5 / array.length);
+							const style = {
+								height: height + "%",
+								top: 100 - height + "%",
+								width: width + "px",
+							}
+							const className = (() => {
+								if (indexList == null) {
+									return "bar";
+								}
+								if (indexList.includes(index)) {
+									if (status === "swap") {
+										return "bar-swap";
+									}
+									else if (status === "compare") {
+										return "bar-compare";
+									}
+								}
 								return "bar";
-							}
-							if (indexList.includes(index)) {
-								if (status === "swap") {
-									return "bar-swap";
-								}
-								else if (status === "compare") {
-									return "bar-compare";
-								}
-							}
-							return "bar";
-						})();
-						return (
-							<div className={className} style={style}></div>
-						)
-					})
-				}
+							})();
+							return (
+								<div className={className} style={style}></div>
+							)
+						})
+					}
+				</div>
+				<div className='reset'>
+					<button className='reset-button' onClick={this.props.onRestore}>Reset</button>
+				</div>
 			</div>
+
 		);
 	}
 }
