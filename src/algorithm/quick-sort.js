@@ -1,3 +1,5 @@
+import {swap} from './util.js'
+
 export function quickSort(array) {
   const arr = array.slice();
   console.log(arr.slice().join(', ') + " before");
@@ -9,50 +11,23 @@ export function quickSort(array) {
 }
 
 function quickSortHelper(array, l, r, history) {
-  //console.log(array.slice().join(', '));
-  if (array.length > 1) {
-    const pivot = partition(array, l, r, history);
-    if (left < pivot - 1) {
-      quickSortHelper(array, l, pivot - 1, history);
-    }
-    if (pivot < right) {
-      quickSortHelper(array, pivot, r, history);
-    }
+  if (l < r) {
+    let pivot = partition(array, l, r, history);
+    quickSortHelper(array, l, pivot - 1, history);
+    quickSortHelper(array, pivot + 1, r, history);
   }
 }
 
-function partition(array, left, right, history) {
-  const pivot = Math.floor((right + left) / 2);
-  let i = left;
-  let j = right - 1;
-  while (i <= j) {
-    while (array[i] < array[pivot]) {
-      history.push({array: array.slice(), status: 'compare', index: [i , pivot]});
-      i++;
-    }
-    while (array[j] > array[pivot]) {
-      history.push({array: array.slice(), status: 'compare', index: [j , pivot]});
-      j--;
-    }
-
-    if (i <= j) {
+function partition(array, l, r, history) {
+  let pivot = array[r];
+  let i = l;
+  for (let j = l; j < r; j++) {
+    history.push({array: array.slice(), status: 'compare', index: [j, r]});
+    if (array[j] < pivot) {
       swap(array, i, j, history);
       i++;
-      j--
     }
   }
-
-  swap(array, j, pivot, history);
+  swap(array, i, r, history);
   return i;
-}
-
-function swap(array, first_index, second_index, history) {
-  const tmp = array[first_index];
-  array[first_index] = array[second_index];
-  array[second_index] = tmp;
-  history.push({
-    array: array.slice(),
-    status: 'swap',
-    index: [first_index, second_index]
-  })
 }
