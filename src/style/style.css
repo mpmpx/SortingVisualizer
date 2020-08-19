@@ -45,12 +45,18 @@ body, html {
   margin: 0;
 }
 
+.nav-item:hover .nav-button {
+    background-color: white;
+    color: #aebfa0;
+    transition: 0.2s;
+}
+
 .visualize-button {
   color: red;
 }
 
-.nav-item:hover .nav-button {
-    background-color: #bfbfbf;
+.nav-item:hover .visualize-button {
+  color: red;
 }
 
 .dropdown-menu {

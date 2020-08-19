@@ -39,7 +39,7 @@ class Board extends React.Component {
 					}
 				</div>
 				<div className='reset'>
-					<button className='reset-button' onClick={this.props.onRestore}>Reset</button>
+					<button className='reset-button' onClick={this.props.onRestore}>Restore</button>
 				</div>
 			</div>
 

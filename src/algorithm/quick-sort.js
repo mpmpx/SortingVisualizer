@@ -2,11 +2,9 @@ import {swap} from './util.js'
 
 export function quickSort(array) {
   const arr = array.slice();
-  console.log(arr.slice().join(', ') + " before");
   let history = [];
   quickSortHelper(arr, 0, arr.length - 1, history);
   history.push({array: arr.slice(), status: 'none', index: null});
-  console.log(arr.slice().join(', '));
   return history;
 }
 

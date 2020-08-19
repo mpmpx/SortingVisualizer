@@ -18,13 +18,14 @@ class ControlPane extends React.Component {
 					</button>
 				</div>
 				<div className='dropdown nav-item'>
-				  <button className='dropdown-button nav-button'>Algorithm</button>
+				  <button className='dropdown-button nav-button' >Algorithm &#9660;</button>
 				  <div className='dropdown-menu'>
 						<a href="#" className='dropdown-item' onMouseDown={this.props.onAlgorithmChange.bind(this, "insertion sort")}>Insertion sort</a>
 						<a href="#" className='dropdown-item' onMouseDown={this.props.onAlgorithmChange.bind(this, "selection sort")}>Selection sort</a>
 						<a href="#" className='dropdown-item' onMouseDown={this.props.onAlgorithmChange.bind(this, "bubble sort")}>Bubble sort</a>
 				    <a href="#" className='dropdown-item' onMouseDown={this.props.onAlgorithmChange.bind(this, "merge sort")}>Merge sort</a>
 						<a href="#" className='dropdown-item' onMouseDown={this.props.onAlgorithmChange.bind(this, "quick sort")}>Quick sort</a>
+						<a href="#" className='dropdown-item' onMouseDown={this.props.onAlgorithmChange.bind(this, "heap sort")}>Heap sort</a>
 				    <a href="#" style={{display: 'none'}} className='dropdown-item' onMouseDown={this.props.onAlgorithmChange.bind(this, "quick sort")}>Quick sort</a>
 				  </div>
 				</div>

@@ -6,6 +6,7 @@ import {selectionSort} from '../algorithm/selection-sort.js'
 import {bubbleSort} from '../algorithm/bubble-sort.js'
 import {mergeSort} from '../algorithm/merge-sort.js'
 import {quickSort} from '../algorithm/quick-sort.js'
+import {heapSort} from '../algorithm/heap-sort.js'
 
 class App extends React.Component {
 	constructor(props) {
@@ -29,6 +30,7 @@ class App extends React.Component {
 			arraySize: 10,
 			speed: 5,
 			array: array,
+			origin_array: array,
 		};
     this.handleReset = this.handleReset.bind(this);
 		this.handleRestore = this.handleRestore.bind(this);
@@ -49,22 +51,23 @@ class App extends React.Component {
 			arraySize: 10,
 			speed: 5,
 			array: array,
+			origin_array: array,
     })
   }
 
 	handleRestore() {
 		this.setState({
 			count: 0,
-			history: [this.state.history[0]],
-			array: this.state.history[0].array,
+			history: [{array: this.state.origin_array, status: 'none', index: null}],
 			isVisualizationOn: false,
+			array: this.state.origin_array,
 		})
 	}
 
 	handleAlgorithmChange(algorithm) {
 		this.setState({
       count: 0,
-      history: [{array: this.state.array, status: 'none', index: null}],
+			history: [{array: this.state.array, status: 'none', index: null}],
 			algorithm: algorithm,
 		})
 	}
@@ -73,7 +76,7 @@ class App extends React.Component {
 		if (this.state.algorithm === '') {
 			return;
 		}
-		const array = this.state.array.slice();
+		const array = this.state.array;
     const new_history = (() => {
       switch (this.state.algorithm) {
 				case "insertion sort":
@@ -86,13 +89,14 @@ class App extends React.Component {
           return mergeSort(array);
         case "quick sort":
           return quickSort(array);
-        default:
+				case "heap sort":
+					return heapSort(array);
+				default:
           throw new Error("Algorithm not found: " + this.state.algorithm);
       }
     })();
+
     const history = this.state.history.concat(new_history);
-
-
 		const id = setInterval(() => {
 			const count = this.state.count;
       document.getElementsByTagName('html')[0].style['pointer-events'] = 'none';
@@ -103,8 +107,8 @@ class App extends React.Component {
 			this.setState({
 				count: count + 1,
 				history: history,
+				array: this.state.history[this.state.count].array,
 				isVisualizationOn: true,
-				array: history[count].array,
 			});
 		}, 10 / this.state.speed * 10);
 	}
@@ -114,6 +118,7 @@ class App extends React.Component {
 		this.setState({
 			count: 0,
 			array: array,
+			origin_array: array,
 			history: [{array: array, status: 'none', index: []}],
 		});
 	}
@@ -126,6 +131,7 @@ class App extends React.Component {
 			history: [{array: array, status: 'none', index: []}],
 			array: array,
 			arraySize: size,
+			origin_array: array,
 		});
 	}
 
